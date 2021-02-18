@@ -81,3 +81,15 @@ document.addEventListener('scroll', _.throttle(() => {
 
 // 6. feladat -- timeout/interval + intersectionObserver
 
+// 6. feladat - jQueryvel
+
+const counter = $('[data-number-max]');
+new Waypoint({
+  element: counter,
+  handler: () => {
+    counter.animateNumber({
+      number: counter.attr('data-number-max'),
+    });
+  },
+  offset: '75%',
+});
