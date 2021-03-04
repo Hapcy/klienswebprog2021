@@ -1,0 +1,24 @@
+<form>
+    <input name="cica" type="text" is="keyfiltered-input" validCharacters="[0-9]" />
+    <button type="submit">submit</button>
+</form>
+<script>
+  class KeyfilteredInput extends HTMLInputElement {
+    connectedCallback() {
+      this.regexp = new RegExp(this.getAttribute('validCharacters'));
+      this.addEventListener('keydown', this.handleKeydown);
+    }
+
+    handleKeydown(e) {
+      if (e.key.length !== 1) {
+        return;
+      }
+      if (!this.regexp.test(e.key)) {
+        e.preventDefault();
+      }
+    }
+  }
+  customElements.define('keyfiltered-input', KeyfilteredInput, {
+    extends: 'input',
+  });
+</script>

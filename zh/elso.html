@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <style>
+      .color-changer {
+        transition: background-color 0.1s linear;
+      }
+    </style>
+  </head>
+  <body style="height: 290vh;">
+    <div
+      class="color-changer"
+      style="height: 90vh; position: relative; top: 100vh; border-radius: 45vh; width: 90vh; margin: 0 auto;"
+    ></div>
+    <script>
+      const thresholds = [];
+      for (let i = 0; i <= 1; i += 0.01) {
+        thresholds.push(i);
+      }
+
+      const div = document.querySelector(".color-changer");
+
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            entry.target.style.backgroundColor = `hsl(${entry.intersectionRatio *
+              360}, 100%, 50%)`;
+          });
+        },
+        { threshold: thresholds }
+      );
+
+      observer.observe(div);
+    </script>
+  </body>
+</html>
