@@ -1,7 +1,7 @@
-import { examplePlaylists } from '../../domain/playlist';
+import { PlaylistTypes } from "../../domain/playlist";
 
-export function PlaylistList() {
-  const playlists = examplePlaylists.map((playlist) => (
+export function PlaylistList({ playlists }) {
+  const playlistItems = playlists.map((playlist) => (
     <div key={playlist.id} className="item">
       <i className="large compact disc middle aligned icon"></i>
       <div className="content">
@@ -14,7 +14,7 @@ export function PlaylistList() {
     <>
       <h3>Playlists</h3>
       <div className="ui very relaxed selection list">
-        {playlists}
+        {playlistItems}
         <div className="item" id="newPlaylist">
           <i className="large green plus middle aligned icon"></i>
           <div className="content">
@@ -26,3 +26,7 @@ export function PlaylistList() {
     </>
   );
 }
+
+PlaylistList.propTypes = {
+  playlists: PlaylistTypes.PlaylistList.isRequired,
+};

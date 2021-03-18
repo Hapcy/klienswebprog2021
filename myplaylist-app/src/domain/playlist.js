@@ -1,13 +1,18 @@
 import PropTypes from 'prop-types';
-import { TrackList, exampleTracks } from './track';
+import { TrackTypes, exampleTracks } from './track';
 
-export const Playlist = PropTypes.shape({
+const Playlist = PropTypes.shape({
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  tracks: TrackList,
+  tracks: TrackTypes.TrackList.isRequired,
 });
 
-export const PlaylistList = PropTypes.arrayOf(Playlist);
+const PlaylistList = PropTypes.arrayOf(Playlist);
+
+export const PlaylistTypes = {
+  PlaylistList,
+  Playlist,
+};
 
 export const examplePlaylists = [
   {

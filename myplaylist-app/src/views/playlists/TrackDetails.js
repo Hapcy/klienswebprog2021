@@ -1,8 +1,6 @@
-import { exampleTracks } from '../../domain/track';
+import { TrackTypes } from '../../domain/track';
 
-const track = exampleTracks[0];
-
-export function TrackDetails() {
+export function TrackDetails({ track }) {
   let image;
   if (track.thumbnailURL) {
     image = (
@@ -60,3 +58,7 @@ export function TrackDetails() {
     </div>
   );
 }
+
+TrackDetails.propTypes = {
+  track: TrackTypes.Track,
+};

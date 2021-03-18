@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const Track = PropTypes.shape({
+const Track = PropTypes.shape({
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   artist: PropTypes.string.isRequired,
@@ -11,7 +11,12 @@ export const Track = PropTypes.shape({
   chordsURL: PropTypes.string,
 });
 
-export const TrackList = PropTypes.arrayOf(Track);
+const TrackList = PropTypes.arrayOf(Track);
+
+export const TrackTypes = {
+  Track,
+  TrackList,
+};
 
 export const exampleTracks = [
   {
