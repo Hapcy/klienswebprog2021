@@ -1,11 +1,20 @@
-import { PlaylistTypes } from "../../domain/playlist";
+import { PlaylistTypes } from '../../domain/playlist';
+import classNames from 'classnames';
 
-export function PlaylistList({ playlists }) {
+export function PlaylistList({ playlists, chosenPlaylist, setChosenPlaylist }) {
+
   const playlistItems = playlists.map((playlist) => (
-    <div key={playlist.id} className="item">
+    <div
+      key={playlist.id}
+      className={classNames({
+        item: true,
+        active: playlist === chosenPlaylist,
+      })}
+      onClick={() => setChosenPlaylist(playlist)}
+    >
       <i className="large compact disc middle aligned icon"></i>
       <div className="content">
-        <a className="header">{playlist.title}</a>
+        <span className="header">{playlist.title}</span>
         <div className="description">{playlist.tracks.length} songs</div>
       </div>
     </div>
