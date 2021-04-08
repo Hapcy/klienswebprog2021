@@ -1,9 +1,12 @@
 import { PlaylistTypes } from '../../domain/playlist';
 import classNames from 'classnames';
-import { useState } from 'react';
+// import { useState } from 'react';
+import { useRef } from 'react';
 
-export function PlaylistList({ playlists, chosenPlaylist, setChosenPlaylist }) {
-  const [newPlaylistName, setNewPlaylistName] = useState('');
+export function PlaylistList({ playlists, chosenPlaylist, setChosenPlaylist, addNewPlaylist }) {
+  // const [newPlaylistName, setNewPlaylistName] = useState('');
+  // console.log(newPlaylistName);
+  const inputRef = useRef(null);
 
   const playlistItems = playlists.map((playlist) => (
     <div
@@ -26,18 +29,29 @@ export function PlaylistList({ playlists, chosenPlaylist, setChosenPlaylist }) {
       <h3>Playlists</h3>
       <div className="ui very relaxed selection list">
         {playlistItems}
-        <form className="item" id="newPlaylist">
+        <form onSubmit={e => {
+          e.preventDefault();
+          addNewPlaylist(inputRef.current.value);
+          inputRef.current.value = '';
+        }} className="item" id="newPlaylist">
           <i className="large green plus middle aligned icon"></i>
           <div className="content">
             <span className="header">New</span>
             <div className="description">
               {/* Create a new playlist */}
               {/* Controlled input */}
-              <input
+              {/* <input
                 type="text"
                 required
                 value={newPlaylistName}
                 onChange={(e) => setNewPlaylistName(e.target.value)}
+              /> */}
+              {/* Uncontrolled input */}
+              <input
+                name="newPlaylistName"
+                type="text"
+                required
+                ref={inputRef}
               />
             </div>
           </div>

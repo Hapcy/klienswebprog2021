@@ -4,16 +4,20 @@ import { TrackTypes, exampleTracks } from '../../domain/track';
 import { Track } from './Track';
 import { TrackForm } from './TrackForm';
 
-export function TracksPage({ tracks = exampleTracks, playlists = examplePlaylists }) {
+export function TracksPage({
+  tracks = exampleTracks,
+  playlists = examplePlaylists,
+}) {
   const [trackToEdit, setTrackToEdit] = useState({ id: null });
   const resetTrackToEdit = () => setTrackToEdit({ id: null });
+
   const [modalOpen, setModalOpen] = useState(false);
   const closeModal = () => setModalOpen(false);
   const openModalForNew = () => {
     resetTrackToEdit();
     setModalOpen(true);
   };
-  const openModalForEdit = track => {
+  const openModalForEdit = (track) => {
     setTrackToEdit(track);
     setModalOpen(true);
   };
@@ -21,7 +25,10 @@ export function TracksPage({ tracks = exampleTracks, playlists = examplePlaylist
   return (
     <>
       <div className="ui container">
-        <button className="ui right floated green button" onClick={openModalForNew}>
+        <button
+          className="ui right floated green button"
+          onClick={openModalForNew}
+        >
           <i className="plus icon"></i>
           New track
         </button>
@@ -35,7 +42,7 @@ export function TracksPage({ tracks = exampleTracks, playlists = examplePlaylist
             </tr>
           </thead>
           <tbody>
-            {tracks.map(track => (
+            {tracks.map((track) => (
               <Track
                 key={track.id}
                 track={track}
