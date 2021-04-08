@@ -15,7 +15,7 @@ export function TrackDetails({ track }) {
         <div className="item">
           {image}
           <div className="content">
-            <a className="header">{track.title}</a>
+            <span className="header">{track.title}</span>
             <div className="meta">
               <span>{track.artist}</span>
               <span>{track.length}</span>
@@ -26,6 +26,7 @@ export function TrackDetails({ track }) {
                   href={track.spotifyURL}
                   className="ui button tiny green button"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   <i className="spotify icon"></i>
                   Listen on Spotify
@@ -36,6 +37,7 @@ export function TrackDetails({ track }) {
                   href={track.lyricsURL}
                   className="ui button tiny teal button"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   <i className="microphone icon"></i>
                   Show lyrics
@@ -46,6 +48,7 @@ export function TrackDetails({ track }) {
                   href={track.chordsURL}
                   className="ui button tiny orange button"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   <i className="guitar icon"></i>
                   Show chords

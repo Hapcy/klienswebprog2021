@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 export function Menu() {
   return (
     <nav className="ui secondary menu">
-      <img src="assets/logo.png" />
+      <img src="assets/logo.png" alt="" />
       <NavLink to="/home" className="item">
         <i className="home icon"></i> Home
       </NavLink>
