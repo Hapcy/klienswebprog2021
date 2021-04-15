@@ -1,9 +1,8 @@
 import React from 'react';
-import { PlaylistTypes } from '../../domain/playlist';
 import { TrackTypes } from '../../domain/track';
 import { TrackActions } from './TrackActions';
 
-export function Track({ track, playlists, deleteTrack, editTrack, addToPlaylist }) {
+export function Track({ track, editTrack }) {
   const { artist, title } = track;
   return (
     <tr>
@@ -15,10 +14,8 @@ export function Track({ track, playlists, deleteTrack, editTrack, addToPlaylist 
       </td>
       <td className="right aligned collapsing">
         <TrackActions
-          deleteTrack={deleteTrack}
           editTrack={editTrack}
-          addToPlaylist={addToPlaylist}
-          playlists={playlists}
+          track={track}
         ></TrackActions>
       </td>
     </tr>
@@ -27,5 +24,4 @@ export function Track({ track, playlists, deleteTrack, editTrack, addToPlaylist 
 
 Track.propTypes = {
   track: TrackTypes.Track.isRequired,
-  playlists: PlaylistTypes.PlaylistList.isRequired,
 };

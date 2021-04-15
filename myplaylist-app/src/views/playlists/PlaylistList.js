@@ -1,11 +1,16 @@
 import { PlaylistTypes } from '../../domain/playlist';
 import classNames from 'classnames';
 // import { useState } from 'react';
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
+import { PlaylistsContext } from '../../state/PlaylistsProvider';
 
-export function PlaylistList({ playlists, chosenPlaylist, setChosenPlaylist, addNewPlaylist }) {
+export function PlaylistList({ chosenPlaylist, setChosenPlaylist }) {
+  const { playlists, addNewPlaylist } = useContext(PlaylistsContext);
+
+  // Controlled input state
   // const [newPlaylistName, setNewPlaylistName] = useState('');
   // console.log(newPlaylistName);
+
   const inputRef = useRef(null);
 
   const playlistItems = playlists.map((playlist) => (
@@ -60,7 +65,3 @@ export function PlaylistList({ playlists, chosenPlaylist, setChosenPlaylist, add
     </>
   );
 }
-
-PlaylistList.propTypes = {
-  playlists: PlaylistTypes.PlaylistList.isRequired,
-};

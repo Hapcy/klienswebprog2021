@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { Dropdown } from 'semantic-ui-react';
-import { PlaylistTypes } from '../../domain/playlist';
+import { PlaylistsContext } from '../../state/PlaylistsProvider';
+import { TracksContext } from '../../state/TracksProvider';
 
 export function useTextFilter(defaultFilter, items, filterFn) {
   const [filter, setFilter] = useState(defaultFilter);
@@ -11,13 +12,18 @@ export function useTextFilter(defaultFilter, items, filterFn) {
   return { filter, handleFilterChange, filteredItems };
 }
 
-export function TrackActions({
-  playlists,
-  deleteTrack,
-  editTrack,
-  addToPlaylist,
-}) {
+export function TrackActions({ editTrack, track }) {
+  const { playlists, addToPlaylist } = useContext(PlaylistsContext);
+  const { deleteTrack } = useContext(TracksContext);
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const searchInputRef = useRef(null);
+
+  useEffect(() => {
+    if (dropdownOpen) {
+      searchInputRef.current.focus();
+    }
+  }, [dropdownOpen]);
 
   const {
     filter,
@@ -31,7 +37,7 @@ export function TrackActions({
       role="button"
       onClick={() => {
         setDropdownOpen(false);
-        addToPlaylist(playlist);
+        addToPlaylist(playlist, track);
       }}
       key={playlist.id}
       className="item"
@@ -48,12 +54,14 @@ export function TrackActions({
         as="div"
         icon="plus"
         className="ui icon top right pointing dropdown button"
+        closeOnBlur={false}
       >
         <Dropdown.Menu>
           <Dropdown.Header>Add to playlist</Dropdown.Header>
           <div className="ui search icon input">
             <i className="search icon"></i>
             <input
+              ref={searchInputRef}
               value={filter}
               type="text"
               name="search"
@@ -68,13 +76,9 @@ export function TrackActions({
       <button className="ui icon button" onClick={editTrack}>
         <i className="edit icon"></i>
       </button>
-      <button className="ui icon button red" onClick={deleteTrack}>
+      <button className="ui icon button red" onClick={() => deleteTrack(track)}>
         <i className="trash icon"></i>
       </button>
     </>
   );
 }
-
-TrackActions.propTypes = {
-  playlists: PlaylistTypes.PlaylistList.isRequired,
-};

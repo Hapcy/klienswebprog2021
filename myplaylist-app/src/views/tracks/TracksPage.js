@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { examplePlaylists } from '../../domain/playlist';
-import { TrackTypes, exampleTracks } from '../../domain/track';
+import React, { useContext, useState } from 'react';
+import { TrackTypes } from '../../domain/track';
+import { TracksContext } from '../../state/TracksProvider';
 import { Track } from './Track';
 import { TrackForm } from './TrackForm';
 
-export function TracksPage({
-  tracks = exampleTracks,
-  playlists = examplePlaylists,
-}) {
+export function TracksPage() {
+  const { tracks, addOrUpdateTrack } = useContext(TracksContext);
+
   const [trackToEdit, setTrackToEdit] = useState({ id: null });
   const resetTrackToEdit = () => setTrackToEdit({ id: null });
 
@@ -46,7 +45,6 @@ export function TracksPage({
               <Track
                 key={track.id}
                 track={track}
-                playlists={playlists}
                 editTrack={() => openModalForEdit(track)}
               ></Track>
             ))}
@@ -54,7 +52,7 @@ export function TracksPage({
         </table>
       </div>
       <TrackForm
-        onSubmit={console.log}
+        onSubmit={addOrUpdateTrack}
         track={trackToEdit}
         key={trackToEdit.id}
         closeModal={closeModal}
