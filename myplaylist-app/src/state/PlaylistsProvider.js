@@ -21,17 +21,17 @@ function usePlaylists() {
     maxId.current += 1;
   };
 
-  const addToPlaylist = (chosenPlaylist, chosenTrack) => {
+  const addTrackToPlaylist = (chosenPlaylist, chosenTrack) => {
     setPlaylists(
       playlists.map((playlist) => {
         if (chosenPlaylist === playlist) {
           const trackAlreadyAdded = playlist.tracks.some(
-            (track) => track === chosenTrack,
+            (trackId) => trackId === chosenTrack.id,
           );
           if (!trackAlreadyAdded) {
             return {
               ...playlist,
-              tracks: [...playlist.tracks, chosenTrack],
+              tracks: [...playlist.tracks, chosenTrack.id],
             };
           }
         }
@@ -41,16 +41,20 @@ function usePlaylists() {
   };
 
   const deleteTrackFromPlaylists = (trackToDelete) => {
-    setPlaylists(playlists.map(playlist => ({
-      ...playlist,
-      tracks: playlist.tracks.filter(track => track !== trackToDelete),
-    })));
+    setPlaylists(
+      playlists.map((playlist) => ({
+        ...playlist,
+        tracks: playlist.tracks.filter(
+          (trackId) => trackId !== trackToDelete.id,
+        ),
+      })),
+    );
   };
 
   return {
     playlists,
     addNewPlaylist,
-    addToPlaylist,
+    addTrackToPlaylist,
     deleteTrackFromPlaylists,
   };
 }

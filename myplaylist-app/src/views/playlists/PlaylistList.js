@@ -1,11 +1,11 @@
 import { PlaylistTypes } from '../../domain/playlist';
 import classNames from 'classnames';
 // import { useState } from 'react';
-import { useRef, useContext } from 'react';
-import { PlaylistsContext } from '../../state/PlaylistsProvider';
+import { useRef } from 'react';
+import { usePlaylistsWithTracks } from '../../state/playlistsWithTracksSelector';
 
 export function PlaylistList({ chosenPlaylist, setChosenPlaylist }) {
-  const { playlists, addNewPlaylist } = useContext(PlaylistsContext);
+  const { playlists, addNewPlaylist } = usePlaylistsWithTracks();
 
   // Controlled input state
   // const [newPlaylistName, setNewPlaylistName] = useState('');
@@ -34,11 +34,15 @@ export function PlaylistList({ chosenPlaylist, setChosenPlaylist }) {
       <h3>Playlists</h3>
       <div className="ui very relaxed selection list">
         {playlistItems}
-        <form onSubmit={e => {
-          e.preventDefault();
-          addNewPlaylist(inputRef.current.value);
-          inputRef.current.value = '';
-        }} className="item" id="newPlaylist">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            addNewPlaylist(inputRef.current.value);
+            inputRef.current.value = '';
+          }}
+          className="item"
+          id="newPlaylist"
+        >
           <i className="large green plus middle aligned icon"></i>
           <div className="content">
             <span className="header">New</span>

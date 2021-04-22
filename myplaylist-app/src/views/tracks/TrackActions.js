@@ -13,7 +13,7 @@ export function useTextFilter(defaultFilter, items, filterFn) {
 }
 
 export function TrackActions({ editTrack, track }) {
-  const { playlists, addToPlaylist } = useContext(PlaylistsContext);
+  const { playlists, addTrackToPlaylist } = useContext(PlaylistsContext);
   const { deleteTrack } = useContext(TracksContext);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -37,7 +37,7 @@ export function TrackActions({ editTrack, track }) {
       role="button"
       onClick={() => {
         setDropdownOpen(false);
-        addToPlaylist(playlist, track);
+        addTrackToPlaylist(playlist, track);
       }}
       key={playlist.id}
       className="item"
