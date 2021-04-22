@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
-import { PlaylistsContext } from '../../state/PlaylistsProvider';
+import { addTrackToPlaylist } from '../../state/action/playlistsActions';
 import { TracksContext } from '../../state/TracksProvider';
 
 export function useTextFilter(defaultFilter, items, filterFn) {
@@ -13,7 +14,10 @@ export function useTextFilter(defaultFilter, items, filterFn) {
 }
 
 export function TrackActions({ editTrack, track }) {
-  const { playlists, addTrackToPlaylist } = useContext(PlaylistsContext);
+  const playlists = useSelector((state) => state.playlists);
+  const dispatch = useDispatch();
+  const handleAddTrackToPlaylist = (chosenPlaylist, chosenTrack) =>
+    dispatch(addTrackToPlaylist(chosenPlaylist, chosenTrack));
   const { deleteTrack } = useContext(TracksContext);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -37,7 +41,7 @@ export function TrackActions({ editTrack, track }) {
       role="button"
       onClick={() => {
         setDropdownOpen(false);
-        addTrackToPlaylist(playlist, track);
+        handleAddTrackToPlaylist(playlist, track);
       }}
       key={playlist.id}
       className="item"

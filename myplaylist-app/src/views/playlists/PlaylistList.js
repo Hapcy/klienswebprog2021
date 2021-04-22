@@ -2,10 +2,13 @@ import { PlaylistTypes } from '../../domain/playlist';
 import classNames from 'classnames';
 // import { useState } from 'react';
 import { useRef } from 'react';
-import { usePlaylistsWithTracks } from '../../state/playlistsWithTracksSelector';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { addNewPlaylist } from '../../state/action/playlistsActions';
 
 export function PlaylistList({ chosenPlaylist, setChosenPlaylist }) {
-  const { playlists, addNewPlaylist } = usePlaylistsWithTracks();
+  const playlists = useSelector((state) => state.playlists);
+  const dispatch = useDispatch();
 
   // Controlled input state
   // const [newPlaylistName, setNewPlaylistName] = useState('');
@@ -37,7 +40,7 @@ export function PlaylistList({ chosenPlaylist, setChosenPlaylist }) {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            addNewPlaylist(inputRef.current.value);
+            dispatch(addNewPlaylist(inputRef.current.value));
             inputRef.current.value = '';
           }}
           className="item"

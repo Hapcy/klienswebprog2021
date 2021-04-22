@@ -1,11 +1,12 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { exampleTracks } from '../domain/track';
-import { PlaylistsContext } from './PlaylistsProvider';
+import { deleteTrackFromPlaylists } from './action/playlistsActions';
 
 export const TracksContext = React.createContext();
 
 function useTracks() {
-  const { deleteTrackFromPlaylists } = useContext(PlaylistsContext);
+  const dispatch = useDispatch();
 
   const [tracks, setTracks] = useState(exampleTracks);
   const maxId = useRef(
@@ -31,7 +32,7 @@ function useTracks() {
 
   const deleteTrack = (trackToDelete) => {
     setTracks(tracks.filter((track) => track !== trackToDelete));
-    deleteTrackFromPlaylists(trackToDelete);
+    dispatch(deleteTrackFromPlaylists(trackToDelete));
   };
 
   return {
