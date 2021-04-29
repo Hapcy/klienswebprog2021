@@ -1,7 +1,6 @@
-import { exampleTracks } from '../../domain/track';
-import { ADD_OR_UPDATE_TRACK, DELETE_TRACK } from './actions';
+import { ADD_OR_UPDATE_TRACK, DELETE_TRACK, SET_TRACKS } from './actions';
 
-const initialState = exampleTracks;
+const initialState = [];
 
 export function tracksReducer(state = initialState, action) {
   const { type, payload } = action;
@@ -13,6 +12,10 @@ export function tracksReducer(state = initialState, action) {
     }
     case DELETE_TRACK: {
       newState = deleteTrack(state, payload);
+      break;
+    }
+    case SET_TRACKS: {
+      newState = payload;
       break;
     }
     default: {

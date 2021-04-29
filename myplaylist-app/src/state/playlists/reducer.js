@@ -1,13 +1,7 @@
-import { examplePlaylists } from '../../domain/playlist';
-import {
-  ADD_NEW_PLAYLIST,
-  ADD_TRACK_TO_PLAYLIST,
-} from '../playlists/actions';
-import {
-  DELETE_TRACK
-} from '../tracks/actions';
+import { ADD_NEW_PLAYLIST, ADD_TRACK_TO_PLAYLIST, SET_PLAYLISTS } from '../playlists/actions';
+import { DELETE_TRACK } from '../tracks/actions';
 
-const initialState = examplePlaylists;
+const initialState = [];
 
 export function playlistsReducer(state = initialState, action) {
   const { type, payload } = action;
@@ -51,6 +45,10 @@ export function playlistsReducer(state = initialState, action) {
           (trackId) => trackId !== trackToDelete.id,
         ),
       }));
+      break;
+    }
+    case SET_PLAYLISTS: {
+      newState = payload;
       break;
     }
     default: {
