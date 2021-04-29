@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
-import { addTrackToPlaylist } from '../../state/action/playlistsActions';
-import { TracksContext } from '../../state/TracksProvider';
+import { addTrackToPlaylist } from '../../state/playlists/actions';
+import { selectPlaylists } from '../../state/playlists/selector';
+import { deleteTrack } from '../../state/tracks/actions';
 
 export function useTextFilter(defaultFilter, items, filterFn) {
   const [filter, setFilter] = useState(defaultFilter);
@@ -14,11 +15,13 @@ export function useTextFilter(defaultFilter, items, filterFn) {
 }
 
 export function TrackActions({ editTrack, track }) {
-  const playlists = useSelector((state) => state.playlists);
+  const playlists = useSelector(selectPlaylists);
   const dispatch = useDispatch();
   const handleAddTrackToPlaylist = (chosenPlaylist, chosenTrack) =>
     dispatch(addTrackToPlaylist(chosenPlaylist, chosenTrack));
-  const { deleteTrack } = useContext(TracksContext);
+  const handleDeleteTrack = (trackToDelete) => {
+    dispatch(deleteTrack(trackToDelete));
+  }
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const searchInputRef = useRef(null);
@@ -80,7 +83,7 @@ export function TrackActions({ editTrack, track }) {
       <button className="ui icon button" onClick={editTrack}>
         <i className="edit icon"></i>
       </button>
-      <button className="ui icon button red" onClick={() => deleteTrack(track)}>
+      <button className="ui icon button red" onClick={() => handleDeleteTrack(track)}>
         <i className="trash icon"></i>
       </button>
     </>

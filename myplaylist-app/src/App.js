@@ -9,8 +9,6 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { TracksPage } from './views/tracks/TracksPage';
-import { PlaylistsProvider } from './state/PlaylistsProvider';
-import { TracksProvider } from './state/TracksProvider';
 import { Provider } from 'react-redux';
 import { store } from './state/store';
 
@@ -18,26 +16,22 @@ function App() {
   return (
     <Router>
       <Provider store={store}>
-        <PlaylistsProvider>
-          <TracksProvider>
-            <Layout>
-              <Switch>
-                <Route path="/home">
-                  <HomePage></HomePage>
-                </Route>
-                <Route path="/playlists">
-                  <PlaylistsPage></PlaylistsPage>
-                </Route>
-                <Route path="/tracks">
-                  <TracksPage></TracksPage>
-                </Route>
-                <Route>
-                  <Redirect to="/home"></Redirect>
-                </Route>
-              </Switch>
-            </Layout>
-          </TracksProvider>
-        </PlaylistsProvider>
+        <Layout>
+          <Switch>
+            <Route path="/home">
+              <HomePage></HomePage>
+            </Route>
+            <Route path="/playlists">
+              <PlaylistsPage></PlaylistsPage>
+            </Route>
+            <Route path="/tracks">
+              <TracksPage></TracksPage>
+            </Route>
+            <Route>
+              <Redirect to="/home"></Redirect>
+            </Route>
+          </Switch>
+        </Layout>
       </Provider>
     </Router>
   );

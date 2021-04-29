@@ -2,8 +2,10 @@ import { examplePlaylists } from '../../domain/playlist';
 import {
   ADD_NEW_PLAYLIST,
   ADD_TRACK_TO_PLAYLIST,
-  DELETE_TRACK_FROM_PLAYLISTS,
-} from '../action/playlistsActions';
+} from '../playlists/actions';
+import {
+  DELETE_TRACK
+} from '../tracks/actions';
 
 const initialState = examplePlaylists;
 
@@ -41,8 +43,8 @@ export function playlistsReducer(state = initialState, action) {
       });
       break;
     }
-    case DELETE_TRACK_FROM_PLAYLISTS: {
-      const { trackToDelete } = payload;
+    case DELETE_TRACK: {
+      const trackToDelete = payload;
       newState = state.map((playlist) => ({
         ...playlist,
         tracks: playlist.tracks.filter(

@@ -4,10 +4,11 @@ import classNames from 'classnames';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { addNewPlaylist } from '../../state/action/playlistsActions';
+import { addNewPlaylist } from '../../state/playlists/actions';
+import { selectPlaylistsWithTracks } from '../../state/playlists/selector';
 
 export function PlaylistList({ chosenPlaylist, setChosenPlaylist }) {
-  const playlists = useSelector((state) => state.playlists);
+  const playlists = useSelector(selectPlaylistsWithTracks);
   const dispatch = useDispatch();
 
   // Controlled input state

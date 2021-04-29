@@ -1,11 +1,17 @@
 import React, { useContext, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { TrackTypes } from '../../domain/track';
-import { TracksContext } from '../../state/TracksProvider';
+import { addOrUpdateTrack } from '../../state/tracks/actions';
+import { selectTracks } from '../../state/tracks/selector';
 import { Track } from './Track';
 import { TrackForm } from './TrackForm';
 
 export function TracksPage() {
-  const { tracks, addOrUpdateTrack } = useContext(TracksContext);
+  const dispatch = useDispatch();
+  const tracks = useSelector(selectTracks);
+  const handleAddOrUpdateTrack = (track) => {
+    dispatch(addOrUpdateTrack(track));
+  };
 
   const [trackToEdit, setTrackToEdit] = useState({ id: null });
   const resetTrackToEdit = () => setTrackToEdit({ id: null });
@@ -52,7 +58,7 @@ export function TracksPage() {
         </table>
       </div>
       <TrackForm
-        onSubmit={addOrUpdateTrack}
+        onSubmit={handleAddOrUpdateTrack}
         track={trackToEdit}
         key={trackToEdit.id}
         closeModal={closeModal}

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { exampleTracks } from '../domain/track';
-import { deleteTrackFromPlaylists } from './action/playlistsActions';
+import { deleteTrackFromPlaylists } from './playlists/actions';
 
 export const TracksContext = React.createContext();
 
