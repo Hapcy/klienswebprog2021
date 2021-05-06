@@ -8,20 +8,14 @@ import { useDispatch } from 'react-redux';
 
 import './api/index';
 import { useEffect } from 'react';
-import { playlistsStorage, tracksStorage } from './api/index';
-import { setTracks } from './state/tracks/actions';
-import { setPlaylists } from './state/playlists/actions';
+import { loadTracks } from './state/tracks/actions';
+import { loadPlaylists } from './state/playlists/actions';
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const readData = async () => {
-      const tracks = await tracksStorage.getAll();
-      dispatch(setTracks(tracks));
-      const playlists = await playlistsStorage.getAll();
-      dispatch(setPlaylists(playlists));
-    };
-    readData();
+    dispatch(loadTracks());
+    dispatch(loadPlaylists());
   }, [dispatch]);
   return (
     <Layout>

@@ -27,18 +27,20 @@ export function tracksReducer(state = initialState, action) {
 }
 
 function addOrUpdateTrack(tracks, track) {
-  if (track.id) {
-    return tracks.map((currentTrack) => {
-      if (currentTrack.id === track.id) {
-        return track;
-      } else {
-        return currentTrack;
-      }
-    });
-  } else {
-    const maxId = tracks.reduce((max, { id }) => Math.max(max, id), 0) + 1;
-    return [...tracks, { ...track, id: maxId }];
+  let trackUpdated = false;
+  const updatedTracks = tracks.map((currentTrack) => {
+    if (currentTrack.id === track.id) {
+      trackUpdated = true;
+      return track;
+    } else {
+      return currentTrack;
+    }
+  });
+  if (!trackUpdated) {
+    // Itt most szabad mutable módon módosítani, mert csak egy átmeneti érték az updatedTracks
+    updatedTracks.push(track);
   }
+  return updatedTracks;
 }
 
 function deleteTrack(tracks, trackToDelete) {
