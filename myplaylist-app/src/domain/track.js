@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const Track = PropTypes.shape({
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   artist: PropTypes.string.isRequired,
   length: PropTypes.string, // számként?

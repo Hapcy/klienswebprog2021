@@ -49,8 +49,8 @@ export class MyPlaylistAppRestApi {
   }
   
   // Delete
-  async delete(id) {
-    const response = await request(`${this.resource}/${id}`, {
+  async delete(item) {
+    const response = await request(`${this.resource}/${item.id}`, {
       method: 'DELETE',
     });
     return response;

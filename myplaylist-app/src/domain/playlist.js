@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { TrackTypes } from './track';
 
 const Playlist = PropTypes.shape({
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   tracks: TrackTypes.TrackList.isRequired,
 });
