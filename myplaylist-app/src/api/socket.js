@@ -12,7 +12,7 @@ export class MyPlaylistAppChannel {
     }
   }
 
-  created(handler) {
+  onCreated(handler) {
     const listener = (receivedMessage) => {
       if (receivedMessage.emitter !== socket.id) {
         handler(receivedMessage.message);

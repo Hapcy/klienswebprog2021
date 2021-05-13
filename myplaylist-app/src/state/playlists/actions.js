@@ -1,4 +1,5 @@
 import { playlistsStorage } from '../../api/index';
+import { sendMessage } from '../messages/actions';
 import { selectPlaylists } from './selector';
 
 export const ADD_NEW_PLAYLIST = 'ADD_NEW_PLAYLIST';
@@ -43,7 +44,9 @@ export function addNewPlaylist(playlistTitle) {
       tracks: [],
     };
     await playlistsStorage.add(newPlaylist);
-    dispatch(addNewPlaylistToStore(newPlaylist));
+    const action = addNewPlaylistToStore(newPlaylist);
+    dispatch(action);
+    dispatch(sendMessage(action));
   };
 }
 
