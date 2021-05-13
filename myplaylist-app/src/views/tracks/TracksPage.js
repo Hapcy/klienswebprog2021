@@ -1,14 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Loader } from 'semantic-ui-react';
 import { TrackTypes } from '../../domain/track';
 import { addOrUpdateTrack } from '../../state/tracks/actions';
-import { selectTracks } from '../../state/tracks/selector';
+import {
+  selectTracks,
+  selectTracksFetching,
+} from '../../state/tracks/selector';
 import { Track } from './Track';
 import { TrackForm } from './TrackForm';
 
 export function TracksPage() {
   const dispatch = useDispatch();
   const tracks = useSelector(selectTracks);
+  const tracksFetching = useSelector(selectTracksFetching);
   const handleAddOrUpdateTrack = (track) => {
     dispatch(addOrUpdateTrack(track));
   };
@@ -38,24 +43,28 @@ export function TracksPage() {
           New track
         </button>
         <h1>Tracks</h1>
-        <table className="ui celled striped table">
-          <thead>
-            <tr>
-              <th>Artist</th>
-              <th>Title</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tracks.map((track) => (
-              <Track
-                key={track.id}
-                track={track}
-                editTrack={() => openModalForEdit(track)}
-              ></Track>
-            ))}
-          </tbody>
-        </table>
+        {tracksFetching ? (
+          <Loader active />
+        ) : (
+          <table className="ui celled striped table">
+            <thead>
+              <tr>
+                <th>Artist</th>
+                <th>Title</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tracks.map((track) => (
+                <Track
+                  key={track.id}
+                  track={track}
+                  editTrack={() => openModalForEdit(track)}
+                ></Track>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
       <TrackForm
         onSubmit={handleAddOrUpdateTrack}

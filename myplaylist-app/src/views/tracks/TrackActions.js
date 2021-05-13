@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
 import { addTrackToPlaylist } from '../../state/playlists/actions';

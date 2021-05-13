@@ -1,21 +1,40 @@
-import { ADD_OR_UPDATE_TRACK, DELETE_TRACK, SET_TRACKS } from './actions';
+import { ADD_OR_UPDATE_TRACK, DELETE_TRACK, SET_TRACKS, SET_TRACKS_FETCHING } from './actions';
 
-const initialState = [];
+const initialState = {
+  items: [],
+  fetching: false,
+};
 
 export function tracksReducer(state = initialState, action) {
   const { type, payload } = action;
   let newState;
   switch (type) {
     case ADD_OR_UPDATE_TRACK: {
-      newState = addOrUpdateTrack(state, payload);
+      newState = {
+        ...state,
+        items: addOrUpdateTrack(state.items, payload),
+      };
       break;
     }
     case DELETE_TRACK: {
-      newState = deleteTrack(state, payload);
+      newState = {
+        ...state,
+        items: deleteTrack(state.items, payload),
+      };
       break;
     }
     case SET_TRACKS: {
-      newState = payload;
+      newState = {
+        ...state,
+        items: payload,
+      };
+      break;
+    }
+    case SET_TRACKS_FETCHING: {
+      newState = {
+        ...state,
+        fetching: payload,
+      }
       break;
     }
     default: {
