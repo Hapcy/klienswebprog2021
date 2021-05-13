@@ -39,6 +39,7 @@ app.use('/', express.static(app.get('public')));
 // Set up Plugins and providers
 app.configure(express.rest());
 app.configure(socketio(gameRoom(app)));
+// app.configure(socketio());
 
 app.configure(sequelize);
 

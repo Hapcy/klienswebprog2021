@@ -1,6 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { Dropdown } from 'semantic-ui-react';
+import { setUser } from '../../state/user/actions';
+import { selectUser } from '../../state/user/selector';
 
 export function Menu() {
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+
   return (
     <nav className="ui secondary menu">
       <img src="assets/logo.png" alt="" />
@@ -16,21 +23,20 @@ export function Menu() {
       <NavLink to="/search" className="item">
         <i className="search icon"></i> Search
       </NavLink>
-      <div className="ui right dropdown item">
-        John Doe
-        <i className="dropdown icon"></i>
-        <div className="menu">
-          <div className="item">
-            <i className="user icon"></i> Profile
-          </div>
-          <div className="item">
-            <i className="settings icon"></i> Settings
-          </div>
-          <div className="item">
-            <i className="sign out icon"></i>Log out
-          </div>
-        </div>
-      </div>
+      {user ? (
+        <Dropdown
+          as="div"
+          icon="dropdown"
+          className="ui right dropdown item"
+          text={user.email}
+        >
+          <Dropdown.Menu>
+            <div className="item" onClick={() => dispatch(setUser(null))}>
+              <i className="sign out icon"></i>Log out
+            </div>
+          </Dropdown.Menu>
+        </Dropdown>
+      ) : null}
     </nav>
   );
 }

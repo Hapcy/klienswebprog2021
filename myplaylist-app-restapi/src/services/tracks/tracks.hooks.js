@@ -4,8 +4,8 @@ const addUser = require('../../hooks/add-user');
 
 module.exports = {
   before: {
-    // all: [ authenticate('jwt') ],
-    all: [],
+    all: [ authenticate('jwt') ],
+    // all: [],
     find: [],
     get: [],
     create: [addUser()],

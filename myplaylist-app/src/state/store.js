@@ -5,11 +5,13 @@ import {
 import thunk from 'redux-thunk';
 import { playlistsReducer } from './playlists/reducer';
 import { tracksReducer } from './tracks/reducer';
+import { userReducer } from './user/reducer';
 
 export const store = createStore(
   combineReducers({
     playlists: playlistsReducer,
     tracks: tracksReducer,
+    user: userReducer,
   }),
   composeWithDevTools(applyMiddleware(thunk)),
 );

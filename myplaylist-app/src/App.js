@@ -4,31 +4,23 @@ import { PlaylistsPage } from './views/playlists/PlaylistsPage';
 import { HomePage } from './views/home/HomePage';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { TracksPage } from './views/tracks/TracksPage';
-import { useDispatch } from 'react-redux';
 
 import './api/index';
-import { useEffect } from 'react';
-import { loadTracks } from './state/tracks/actions';
-import { loadPlaylists } from './state/playlists/actions';
+import { PrivateRoute } from './views/PrivateRoute';
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadTracks());
-    dispatch(loadPlaylists());
-  }, [dispatch]);
   return (
     <Layout>
       <Switch>
         <Route path="/home">
           <HomePage></HomePage>
         </Route>
-        <Route path="/playlists">
+        <PrivateRoute path="/playlists">
           <PlaylistsPage></PlaylistsPage>
-        </Route>
-        <Route path="/tracks">
+        </PrivateRoute>
+        <PrivateRoute path="/tracks">
           <TracksPage></TracksPage>
-        </Route>
+        </PrivateRoute>
         <Route>
           <Redirect to="/home"></Redirect>
         </Route>
